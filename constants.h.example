@@ -22,6 +22,10 @@ const int PIN_SOLENOID_3 = 14;
 #define MQTT_TOPIC_SOLENOID_2_MINUTES "home/esp8266_irrigation_01/solenoid_2/minutes"
 #define MQTT_TOPIC_SOLENOID_3_MINUTES "home/esp8266_irrigation_01/solenoid_3/minutes"
 
+#define MQTT_TOPIC_SOLENOID_1_COUNTDOWN "home/esp8266_irrigation_01/solenoid_1/countdown"
+#define MQTT_TOPIC_SOLENOID_2_COUNTDOWN "home/esp8266_irrigation_01/solenoid_2/countdown"
+#define MQTT_TOPIC_SOLENOID_3_COUNTDOWN "home/esp8266_irrigation_01/solenoid_3/countdown"
+
 #define MQTT_TOPIC_CONTROL_SOLENOID_1_STATE "home/esp8266_irrigation_01/control/solenoid_1/state"
 #define MQTT_TOPIC_CONTROL_SOLENOID_2_STATE "home/esp8266_irrigation_01/control/solenoid_2/state"
 #define MQTT_TOPIC_CONTROL_SOLENOID_3_STATE "home/esp8266_irrigation_01/control/solenoid_3/state"

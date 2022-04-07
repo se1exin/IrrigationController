@@ -20,14 +20,14 @@ bool solenoid3On = false;
 int solenoid1OffMillis = 0;
 int solenoid2OffMillis = 0;
 int solenoid3OffMillis = 0;
+int solendoid1SecondsLeft = 0;
+int solendoid2SecondsLeft = 0;
+int solendoid3SecondsLeft = 0;
 
 void setup() {
   pinMode(PIN_SOLENOID_1, OUTPUT);
   pinMode(PIN_SOLENOID_2, OUTPUT);
   pinMode(PIN_SOLENOID_3, OUTPUT);
-  turnOffSolenoid(1);
-  turnOffSolenoid(2);
-  turnOffSolenoid(3);
 
   Serial.begin(115200);
   while (! Serial);
@@ -38,6 +38,13 @@ void setup() {
   if (!mqttClient.connected()) {
     mqttReconnect();
   }
+
+  turnOffSolenoid(1);
+  turnOffSolenoid(2);
+  turnOffSolenoid(3);
+  publishSecondsLeft(1, 0);
+  publishSecondsLeft(2, 0);
+  publishSecondsLeft(3, 0);
 
   loadFromEeprom();
 
@@ -61,16 +68,37 @@ void loop() {
 
   int currentMillis = millis();
 
-  if (solenoid1On && currentMillis > solenoid1OffMillis) {
-    turnOffSolenoid(1);
+  if (solenoid1On) {
+    if (currentMillis > solenoid1OffMillis) {
+      turnOffSolenoid(1);
+    }
+    int secondsLeft = (solenoid1OffMillis - currentMillis) / 1000;
+    if (secondsLeft >= 0 && secondsLeft != solendoid1SecondsLeft) {
+      solendoid1SecondsLeft = secondsLeft;
+      publishSecondsLeft(1, solendoid1SecondsLeft);
+    }
   }
 
-  if (solenoid2On && currentMillis > solenoid2OffMillis) {
-    turnOffSolenoid(2);
+  if (solenoid2On) {
+    if (currentMillis > solenoid2OffMillis) {
+      turnOffSolenoid(2);
+    }    
+    int secondsLeft = (solenoid2OffMillis - currentMillis) / 1000;
+    if (secondsLeft >= 0 && secondsLeft != solendoid2SecondsLeft) {
+      solendoid2SecondsLeft = secondsLeft;
+      publishSecondsLeft(2, solendoid2SecondsLeft);
+    }
   }
 
-  if (solenoid3On && currentMillis > solenoid3OffMillis) {
-    turnOffSolenoid(3);
+  if (solenoid3On) {
+    if (currentMillis > solenoid3OffMillis) {
+      turnOffSolenoid(3);
+    }
+    int secondsLeft = (solenoid3OffMillis - currentMillis) / 1000;
+    if (secondsLeft >= 0 && secondsLeft != solendoid3SecondsLeft) {
+      solendoid3SecondsLeft = secondsLeft;
+      publishSecondsLeft(3, solendoid3SecondsLeft);
+    }
   }
 
   delay(100);
@@ -119,6 +147,28 @@ void publishSolendoidState(int solenoidNum, char* state) {
     mqttPublish(MQTT_TOPIC_SOLENOID_2_STATE, state);
   } else if (solenoidNum == 3) {
     mqttPublish(MQTT_TOPIC_SOLENOID_3_STATE, state);
+  }
+}
+
+void publishSecondsLeft(int solenoidNum, int secondsLeft) {
+  char time[16];
+
+  int minutes = 0;
+  int seconds = 0;
+
+  if (secondsLeft > 0) {
+      minutes = (secondsLeft / 60) % 60;
+      seconds = secondsLeft % 60;
+  }
+
+  sprintf(time,"%02u:%02u ", minutes, seconds);  
+
+  if (solenoidNum == 1) {
+    mqttPublish(MQTT_TOPIC_SOLENOID_1_COUNTDOWN, time);
+  } else if (solenoidNum == 2) {
+    mqttPublish(MQTT_TOPIC_SOLENOID_2_COUNTDOWN, time);
+  } else if (solenoidNum == 3) {
+    mqttPublish(MQTT_TOPIC_SOLENOID_3_COUNTDOWN, time);
   }
 }
 
