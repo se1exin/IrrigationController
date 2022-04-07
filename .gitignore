@@ -1,0 +1,4 @@
+build
+.vscode
+constants.h
+.DS_Store

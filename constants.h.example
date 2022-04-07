@@ -1,0 +1,37 @@
+// Wifi username and password
+const char *WIFI_SSID = "";
+const char *WIFI_PASSWORD = "";
+
+// MQTT connection details
+const char *MQTT_SERVER = "10.1.1.100";
+const char *MQTT_USER;
+const char *MQTT_PASS;
+const char *MQTT_CLIENT_ID = "esp8266_irrigation_01";
+
+const int PIN_SOLENOID_1 = 13;
+const int PIN_SOLENOID_2 = 12;
+const int PIN_SOLENOID_3 = 14;
+
+#define MQTT_TOPIC_STATUS "home/esp8266_irrigation_01/status"
+
+#define MQTT_TOPIC_SOLENOID_1_STATE "home/esp8266_irrigation_01/solenoid_1/state"
+#define MQTT_TOPIC_SOLENOID_2_STATE "home/esp8266_irrigation_01/solenoid_2/state"
+#define MQTT_TOPIC_SOLENOID_3_STATE "home/esp8266_irrigation_01/solenoid_3/state"
+
+#define MQTT_TOPIC_SOLENOID_1_MINUTES "home/esp8266_irrigation_01/solenoid_1/minutes"
+#define MQTT_TOPIC_SOLENOID_2_MINUTES "home/esp8266_irrigation_01/solenoid_2/minutes"
+#define MQTT_TOPIC_SOLENOID_3_MINUTES "home/esp8266_irrigation_01/solenoid_3/minutes"
+
+#define MQTT_TOPIC_CONTROL_SOLENOID_1_STATE "home/esp8266_irrigation_01/control/solenoid_1/state"
+#define MQTT_TOPIC_CONTROL_SOLENOID_2_STATE "home/esp8266_irrigation_01/control/solenoid_2/state"
+#define MQTT_TOPIC_CONTROL_SOLENOID_3_STATE "home/esp8266_irrigation_01/control/solenoid_3/state"
+
+// When state turns ON, run for these minutes
+#define MQTT_TOPIC_CONTROL_SOLENOID_1_MINUTES "home/esp8266_irrigation_01/control/solenoid_1/minutes"
+#define MQTT_TOPIC_CONTROL_SOLENOID_2_MINUTES "home/esp8266_irrigation_01/control/solenoid_2/minutes"
+#define MQTT_TOPIC_CONTROL_SOLENOID_3_MINUTES "home/esp8266_irrigation_01/control/solenoid_3/minutes"
+
+// Turn on for X minutes
+#define MQTT_TOPIC_CONTROL_SOLENOID_1_ONFOR "home/esp8266_irrigation_01/control/solenoid_1/onfor"
+#define MQTT_TOPIC_CONTROL_SOLENOID_2_ONFOR "home/esp8266_irrigation_01/control/solenoid_2/onfor"
+#define MQTT_TOPIC_CONTROL_SOLENOID_3_ONFOR "home/esp8266_irrigation_01/control/solenoid_3/onfor"
