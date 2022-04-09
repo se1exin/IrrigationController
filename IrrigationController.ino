@@ -141,6 +141,7 @@ void turnOffSolenoid(int solenoidNum) {
 
   digitalWrite(targetPin, LOW);
   publishSolendoidState(solenoidNum, "0");
+  publishSecondsLeft(solenoidNum, 0);
 }
 
 void publishSolendoidState(int solenoidNum, char* state) {
