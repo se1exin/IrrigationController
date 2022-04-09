@@ -128,12 +128,15 @@ void turnOffSolenoid(int solenoidNum) {
   int targetPin = PIN_SOLENOID_1;
   if (solenoidNum == 1) {
     solenoid1On = false;
+    solenoid1OffMillis = 0;
   } else if (solenoidNum == 2) {
     targetPin = PIN_SOLENOID_2;
     solenoid2On = false;
+    solenoid2OffMillis = 0;
   } else if (solenoidNum == 3) {
     targetPin = PIN_SOLENOID_3;
     solenoid3On = false;
+    solenoid3OffMillis = 0;
   }
 
   digitalWrite(targetPin, LOW);
